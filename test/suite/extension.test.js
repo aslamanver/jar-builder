@@ -6,6 +6,7 @@ const vscode = require('vscode');
 // const myExtension = require('../extension');
 
 suite('Extension Test Suite', () => {
+
 	vscode.window.showInformationMessage('Start all tests.');
 
 	test('Sample test', () => {
