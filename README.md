@@ -1,65 +1,42 @@
-# jar-builder README
+# JAR Builder
 
-This is the README for your extension "jar-builder". After writing up a brief description, we recommend including the following sections.
+[![Build Status](https://travis-ci.org/aslamanver/jar-builder.svg?branch=master)](https://travis-ci.org/aslamanver/jar-builder)
 
-## Features
+This extension helps you to compile and build your Java files to `.jar`  package format which you can import among many Java application platforms.
 
-Describe specific features of your extension including screenshots of your extension in action. Image paths are relative to this README file.
-
-For example if there is an image subfolder under your extension project workspace:
-
-\!\[feature X\]\(images/feature-x.png\)
-
-> Tip: Many popular extensions utilize animations. This is an excellent way to show off your extension! We recommend short, focused animations that are easy to follow.
+Just in one command, this will build a `.jar` file from your active Java class.
 
 ## Requirements
 
-If you have any requirements or dependencies, add a section describing those and how to install and configure them.
+You need Java installed on your system with the proper configuration of system variables.
 
-## Extension Settings
+## Installing
 
-Include if your extension adds any VS Code settings through the `contributes.configuration` extension point.
+You can install the latest version of the extension via the Visual Studio Marketplace [here](https://marketplace.visualstudio.com/items?itemName=aslamanver.jar-builder).
 
-For example:
+Alternatively, open Visual Studio code, press `Ctrl+P` or `Cmd+P` and type:
 
-This extension contributes the following settings:
+    > ext install aslamanver.jar-builder
 
-* `myExtension.enable`: enable/disable this extension
-* `myExtension.thing`: set to `blah` to do something
+*Note: Don't forget to reload the window to activate the extension!*
+
+## Instructions
+
+* Run command palette `Ctrl+Shift+P`
+* Type `Build Jar`
+
+That's it check your terminal for more information.
 
 ## Known Issues
 
-Calling out known issues can help limit users opening duplicate issues against your extension.
+Nothing for now.
 
-## Release Notes
+## TODO
 
-Users appreciate release notes as you update your extension.
+- [ ] Make build button in active text editor
 
-### 1.0.0
+### Source Code
 
-Initial release of ...
-
-### 1.0.1
-
-Fixed issue #.
-
-### 1.1.0
-
-Added features X, Y, and Z.
-
------------------------------------------------------------------------------------------------------------
-
-## Working with Markdown
-
-**Note:** You can author your README using Visual Studio Code.  Here are some useful editor keyboard shortcuts:
-
-* Split the editor (`Cmd+\` on macOS or `Ctrl+\` on Windows and Linux)
-* Toggle preview (`Shift+CMD+V` on macOS or `Shift+Ctrl+V` on Windows and Linux)
-* Press `Ctrl+Space` (Windows, Linux) or `Cmd+Space` (macOS) to see a list of Markdown snippets
-
-### For more information
-
-* [Visual Studio Code's Markdown Support](http://code.visualstudio.com/docs/languages/markdown)
-* [Markdown Syntax Reference](https://help.github.com/articles/markdown-basics/)
+The source code is available on GitHub [here](https://github.com/Gruntfuggly/todo-tree).
 
 **Enjoy!**
