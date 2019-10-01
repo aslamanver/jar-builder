@@ -16,6 +16,7 @@
 		"vscode": "^1.38.0"
 	},
 	"categories": [
+		"Programming Languages",
 		"Other"
 	],
 	"activationEvents": [
