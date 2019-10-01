@@ -25,6 +25,8 @@ Alternatively, open Visual Studio code, press `Ctrl+P` or `Cmd+P` and type:
 * Run command palette `Ctrl+Shift+P`
 * Type `Build Jar`
 
+> A folder called `build-jar` will be created in your workspace with the `.jar` file and compiled `.class` files
+
 That's it check your terminal for more information.
 
 ## Known Issues
