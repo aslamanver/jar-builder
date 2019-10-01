@@ -6,7 +6,7 @@ This extension helps you to compile and build your Java files to `.jar`  package
 
 Just in one command, this will build a `.jar` file from your active Java class.
 
-<img src="resources/screens.gif">
+<img src="https://raw.githubusercontent.com/aslamanver/jar-builder/master/resources/screens.gif">
 
 ## Requirements
 
