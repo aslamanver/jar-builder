@@ -6,6 +6,8 @@ This extension helps you to compile and build your Java files to `.jar`  package
 
 Just in one command, this will build a `.jar` file from your active Java class.
 
+<img src="resources/screens.gif">
+
 ## Requirements
 
 You need Java installed on your system with the proper configuration of system variables.
