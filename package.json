@@ -2,7 +2,16 @@
 	"name": "jar-builder",
 	"displayName": "JAR Builder",
 	"description": "Build JAR files from JAVA class or .java files",
-	"version": "0.0.1",
+	"version": "0.0.15",
+	"publisher" : "aslamanver",
+	"repository" : "https://github.com/aslamanver/jar-builder",
+	"license": "MIT",
+	"icon": "resources/icon.png",
+	"keywords": [
+        "jar",
+        "java",
+        "jar-builder"
+    ],
 	"engines": {
 		"vscode": "^1.38.0"
 	},
