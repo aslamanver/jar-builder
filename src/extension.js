@@ -14,6 +14,16 @@ function activate(context) {
 
 	let disposable = vscode.commands.registerCommand('extension.buildjar', function () {
 
+		if(vscode.window.activeTextEditor == undefined) {
+			vscode.window.showErrorMessage('Please open a main Java file to build Jar!');
+			return;
+		}
+
+		if(path.extname(vscode.window.activeTextEditor.document.fileName) != '.java') {
+			vscode.window.showErrorMessage('Please open a Java file!');
+			return;
+		}
+
 		let javaFile = vscode.window.activeTextEditor.document.fileName;
 		let javaFilePath = path.dirname(javaFile);
 		let filePath = vscode.workspace.rootPath;
@@ -111,7 +121,7 @@ function activate(context) {
 
 		// Display a message box to the user
 		terminal.processId.then((processId) => {
-			vscode.window.showInformationMessage('JAR Successfully built');
+			vscode.window.showInformationMessage('JAR file is being built, please check terminal for final result!');
 		});
 	});
 
