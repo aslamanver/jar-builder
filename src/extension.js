@@ -14,12 +14,12 @@ function activate(context) {
 
 	let disposable = vscode.commands.registerCommand('extension.buildjar', function () {
 
-		if(vscode.window.activeTextEditor == undefined) {
+		if (vscode.window.activeTextEditor == undefined) {
 			vscode.window.showErrorMessage('Please open a main Java file to build Jar!');
 			return;
 		}
 
-		if(path.extname(vscode.window.activeTextEditor.document.fileName) != '.java') {
+		if (path.extname(vscode.window.activeTextEditor.document.fileName) != '.java') {
 			vscode.window.showErrorMessage('Please open a Java file!');
 			return;
 		}
@@ -27,19 +27,21 @@ function activate(context) {
 		let javaFile = vscode.window.activeTextEditor.document.fileName;
 		let javaFilePath = path.dirname(javaFile);
 		let filePath = vscode.workspace.rootPath;
+		let buildPathName = 'build-jar';
 		let buildPath = path.join(filePath, "build-jar");
 		let editorFile = path.basename(javaFile, path.extname(javaFile));
 		let jarFile = path.join(buildPath, `${editorFile}.jar`);
 
-		let commandLinux = `rm -rf ${buildPath} && mkdir ${buildPath} && javac -d ${buildPath} ${javaFilePath}/* && jar cvf ${jarFile} ${buildPath} *`;
-		let commandWindows = `rmdir  /s /q ${buildPath} | mkdir ${buildPath} | javac -d ${buildPath} ${javaFilePath}/* | jar cvf ${jarFile} ${buildPath} *`;
+		let commandLinux = `rm -rf ${buildPathName} && mkdir ${buildPathName} && javac -d ${buildPathName} ${javaFilePath}/* && jar cvf ${jarFile} ${buildPathName} *`;
+		let commandWindows = `rmdir  -r ${buildPathName} ; mkdir ${buildPathName} ; javac -d ${buildPathName} ${javaFilePath}\\* ; jar cvf ${buildPathName}\\${editorFile}.jar ${buildPathName}\\*`;
 
-		let commands = [
-			`${process.platform == 'win32' ? 'rmdir -r' : 'rm -rf'} ${buildPath} ${process.platform == 'win32' ? '2>null' : ''}`,
-			`mkdir ${buildPath}`,
-			`javac -d ${buildPath} ${javaFilePath}/*`,
-			`jar cvf ${jarFile} ${buildPath} *`
-		]
+		// let commands = [
+		// 	process.platform == 'win32' ? 'powershell' : 'echo 1',
+		// 	`rmdir -r ${buildPath}`,
+		// 	`mkdir ${buildPath}`,
+		// 	`javac -d ${buildPath} ${javaFilePath}/*`,
+		// 	`jar cvf ${jarFile} ${buildPath} *`
+		// ]
 
 		// vscode.window.setStatusBarMessage('$(loading~spin) Cleaning workspace..');
 
@@ -116,11 +118,21 @@ function activate(context) {
 
 		// vscode.window.setStatusBarMessage('JAR file is Successfully built');
 
-		commands.forEach(command => terminal.sendText(command));
+		// commands.forEach(command => terminal.sendText(command));
+
+		if (process.platform == 'win32') {
+			terminal.sendText('powershell');
+			setTimeout(() => {
+				terminal.sendText(commandWindows);
+			}, 3000);
+		} else {
+			terminal.sendText(commandLinux);
+		}
+
 		terminal.show();
 
 		// Display a message box to the user
-		terminal.processId.then((processId) => {
+		terminal.processId.then(() => {
 			vscode.window.showInformationMessage('JAR file is being built, please check terminal for final result!');
 		});
 	});
