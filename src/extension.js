@@ -24,6 +24,13 @@ function activate(context) {
 		let commandLinux = `rm -rf ${buildPath} && mkdir ${buildPath} && javac -d ${buildPath} ${javaFilePath}/* && jar cvf ${jarFile} ${buildPath} *`;
 		let commandWindows = `rmdir  /s /q ${buildPath} | mkdir ${buildPath} | javac -d ${buildPath} ${javaFilePath}/* | jar cvf ${jarFile} ${buildPath} *`;
 
+		let commands = [
+			`${process.platform == 'win32' ? 'rmdir  /s /q' : 'rm -rf'} ${buildPath}`,
+			`mkdir ${buildPath}`,
+			`javac -d ${buildPath} ${javaFilePath}/*`,
+			`jar cvf ${jarFile} ${buildPath} *`
+		]
+
 		// vscode.window.setStatusBarMessage('$(loading~spin) Cleaning workspace..');
 
 		// exec(`${process.platform == 'win32' ? 'rmdir  /s /q' : 'rm -rf'} ${buildPath}`, (errRm, stdoutRm, stderrRm) => {
@@ -99,7 +106,7 @@ function activate(context) {
 
 		// vscode.window.setStatusBarMessage('JAR file is Successfully built');
 
-		terminal.sendText(process.platform == 'win32' ? commandWindows : commandLinux);
+		commands.forEach(command => terminal.sendText(command));
 		terminal.show();
 
 		// Display a message box to the user
