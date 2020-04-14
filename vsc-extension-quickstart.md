@@ -10,6 +10,8 @@ Just in one command, this will build a `.jar` file from your active Java class.
 
 You need Java installed on your system with the proper configuration of system variables.
 
+Supports only Bash and Powershell.
+
 ## Installing
 
 You can install the latest version of the extension via the Visual Studio Marketplace [here](https://marketplace.visualstudio.com/items?itemName=aslamanver.jar-builder).
