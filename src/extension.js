@@ -32,8 +32,8 @@ function activate(context) {
 		let editorFile = path.basename(javaFile, path.extname(javaFile));
 		let jarFile = path.join(buildPath, `${editorFile}.jar`);
 
-		let commandLinux = `rm -rf ${buildPathName} && mkdir ${buildPathName} && javac -d ${buildPathName} ${javaFilePath}/* && jar cvf ${jarFile} ${buildPathName} *`;
-		let commandWindows = `rmdir  -r ${buildPathName} ; mkdir ${buildPathName} ; javac -d ${buildPathName} ${javaFilePath}\\* ; jar cvf ${buildPathName}\\${editorFile}.jar ${buildPathName}\\*`;
+		let commandLinux = `rm -rf ${buildPathName} && mkdir ${buildPathName} && javac -d ${buildPathName} ${javaFilePath}/* && jar cvf ${buildPathName}/${editorFile}.jar ${buildPathName} *`;
+		let commandWindows = `rmdir  -r ${buildPathName} ; mkdir ${buildPathName} ; javac -d ${buildPathName} ${javaFilePath}\\* ; jar cvf ${buildPathName}\\${editorFile}.jar ${buildPathName} *`;
 
 		// let commands = [
 		// 	process.platform == 'win32' ? 'powershell' : 'echo 1',
