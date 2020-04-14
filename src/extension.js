@@ -35,7 +35,7 @@ function activate(context) {
 		let commandWindows = `rmdir  /s /q ${buildPath} | mkdir ${buildPath} | javac -d ${buildPath} ${javaFilePath}/* | jar cvf ${jarFile} ${buildPath} *`;
 
 		let commands = [
-			`${process.platform == 'win32' ? 'rmdir  /s /q' : 'rm -rf'} ${buildPath}`,
+			`${process.platform == 'win32' ? 'rmdir -r' : 'rm -rf'} ${buildPath} ${process.platform == 'win32' ? '2>null' : ''}`,
 			`mkdir ${buildPath}`,
 			`javac -d ${buildPath} ${javaFilePath}/*`,
 			`jar cvf ${jarFile} ${buildPath} *`
