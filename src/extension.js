@@ -14,7 +14,6 @@ function activate(context) {
 
 	let disposable = vscode.commands.registerCommand('extension.buildjar', function () {
 
-		let isError = false;
 		let javaFile = vscode.window.activeTextEditor.document.fileName;
 		let javaFilePath = path.dirname(javaFile);
 		let filePath = vscode.workspace.rootPath;
@@ -22,43 +21,44 @@ function activate(context) {
 		let editorFile = path.basename(javaFile, path.extname(javaFile));
 		let jarFile = path.join(buildPath, `${editorFile}.jar`);
 
-		// let command = `rm -rf ${buildPath} && mkdir ${buildPath} && javac -d ${buildPath} ${javaFilePath}/* && jar cvf ${jarFile} ${buildPath} *`;
+		let commandLinux = `rm -rf ${buildPath} && mkdir ${buildPath} && javac -d ${buildPath} ${javaFilePath}/* && jar cvf ${jarFile} ${buildPath} *`;
+		let commandWindows = `rmdir  /s /q ${buildPath} | mkdir ${buildPath} | javac -d ${buildPath} ${javaFilePath}/* | jar cvf ${jarFile} ${buildPath} *`;
 
-		vscode.window.setStatusBarMessage('$(loading~spin) Cleaning workspace..');
+		// vscode.window.setStatusBarMessage('$(loading~spin) Cleaning workspace..');
 
-		exec(`${process.platform == 'win32' ? 'rmdir  /s /q' : 'rm -rf'} ${buildPath}`, (errRm, stdoutRm, stderrRm) => {
-			fs.mkdir(buildPath, (errDir) => {
-				if (!errDir) {
-					vscode.window.setStatusBarMessage('$(loading~spin) Building Java files..');
-					exec(`javac -d ${buildPath} ${javaFilePath}/*`, (errJavac, stdoutJavac, stderrJavac) => {
-						if (!errJavac) {
-							vscode.window.setStatusBarMessage('$(loading~spin) Generating JAR file..');
-							exec(`jar cvf ${jarFile} ${buildPath} *`, (errJar, stdoutJar, stderrJar) => {
-								if (!errJar) {
-									vscode.window.setStatusBarMessage('JAR built is successful!');
-									vscode.window.showInformationMessage('JAR file is Successfully built!');
-								}
-								else {
-									// Error jar
-									vscode.window.setStatusBarMessage('JAR built is failed!');
-									vscode.window.showInformationMessage(errJar.message);
-								}
-							});
-						}
-						else {
-							// Error javac
-							vscode.window.setStatusBarMessage('Building Java files is failed!');
-							vscode.window.showErrorMessage(errJavac.message);
-						}
-					});
-				}
-				else {
-					// Error mkdir
-					vscode.window.setStatusBarMessage('Cleaning workspace is failed!');
-					vscode.window.showErrorMessage(errDir.message);
-				}
-			});
-		});
+		// exec(`${process.platform == 'win32' ? 'rmdir  /s /q' : 'rm -rf'} ${buildPath}`, (errRm, stdoutRm, stderrRm) => {
+		// 	fs.mkdir(buildPath, (errDir) => {
+		// 		if (!errDir) {
+		// 			vscode.window.setStatusBarMessage('$(loading~spin) Building Java files..');
+		// 			exec(`javac -d ${buildPath} ${javaFilePath}/*`, (errJavac, stdoutJavac, stderrJavac) => {
+		// 				if (!errJavac) {
+		// 					vscode.window.setStatusBarMessage('$(loading~spin) Generating JAR file..');
+		// 					exec(`jar cvf ${jarFile} ${buildPath} *`, (errJar, stdoutJar, stderrJar) => {
+		// 						if (!errJar) {
+		// 							vscode.window.setStatusBarMessage('JAR built is successful!');
+		// 							vscode.window.showInformationMessage('JAR file is Successfully built!');
+		// 						}
+		// 						else {
+		// 							// Error jar
+		// 							vscode.window.setStatusBarMessage('JAR built is failed!');
+		// 							vscode.window.showInformationMessage(errJar.message);
+		// 						}
+		// 					});
+		// 				}
+		// 				else {
+		// 					// Error javac
+		// 					vscode.window.setStatusBarMessage('Building Java files is failed!');
+		// 					vscode.window.showErrorMessage(errJavac.message);
+		// 				}
+		// 			});
+		// 		}
+		// 		else {
+		// 			// Error mkdir
+		// 			vscode.window.setStatusBarMessage('Cleaning workspace is failed!');
+		// 			vscode.window.showErrorMessage(errDir.message);
+		// 		}
+		// 	});
+		// });
 
 		// if (fs.existsSync(buildPath)) {
 		// 	try {
@@ -99,13 +99,13 @@ function activate(context) {
 
 		// vscode.window.setStatusBarMessage('JAR file is Successfully built');
 
-		// terminal.sendText(command);
-		// terminal.show();
+		terminal.sendText(process.platform == 'win32' ? commandWindows : commandLinux);
+		terminal.show();
 
 		// Display a message box to the user
-		// terminal.processId.then((processId) => {
-		// 	vscode.window.showInformationMessage('JAR Successfully built');
-		// });
+		terminal.processId.then((processId) => {
+			vscode.window.showInformationMessage('JAR Successfully built');
+		});
 	});
 
 	context.subscriptions.push(disposable);
