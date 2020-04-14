@@ -27,9 +27,9 @@ function activate(context) {
 		let javaFile = vscode.window.activeTextEditor.document.fileName;
 		let javaFilePath = path.dirname(javaFile);
 		let filePath = vscode.workspace.rootPath;
-		let buildPath = filePath + "/build-jar";
+		let buildPath = path.join(filePath, "build-jar");
 		let editorFile = path.basename(javaFile, path.extname(javaFile));
-		let jarFile = buildPath + `/${editorFile}.jar`;
+		let jarFile = path.join(buildPath, `${editorFile}.jar`);
 
 		let command = `rm -rf ${buildPath} && mkdir ${buildPath} && javac -d ${buildPath} ${javaFilePath}/* && jar cvf ${jarFile} ${buildPath} *`;
 
