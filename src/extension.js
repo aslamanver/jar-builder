@@ -3,7 +3,7 @@ const { execSync, exec } = require('child_process');
 const path = require("path");
 const fs = require("fs");
 
-const terminal = vscode.window.createTerminal(`Build JAR`);
+var terminal = vscode.window.createTerminal({ name: 'Build JAR', hideFromUser: true });
 
 /**
  * @param {vscode.ExtensionContext} context
@@ -120,21 +120,30 @@ function activate(context) {
 
 		// commands.forEach(command => terminal.sendText(command));
 
+		terminal.dispose();
+		terminal = vscode.window.createTerminal({ name: 'Build JAR', hideFromUser: true });
+
 		if (process.platform == 'win32') {
-			terminal.sendText('powershell');
-			setTimeout(() => {
+
+			exec('where  powershell', (err, stdout) => {
+
+				if (!err) {
+					terminal = vscode.window.createTerminal({
+						name: 'Build JAR', shellPath: stdout.trim(), hideFromUser: true
+					});
+				}
+
 				terminal.sendText(commandWindows);
-			}, 3000);
+				terminal.show();
+			});
+
 		} else {
+
 			terminal.sendText(commandLinux);
+			terminal.show();
 		}
 
-		terminal.show();
-
-		// Display a message box to the user
-		terminal.processId.then(() => {
-			vscode.window.showInformationMessage('JAR file is being built, please check terminal for final result!');
-		});
+		vscode.window.showInformationMessage('JAR file is being built, please check terminal for final result!');
 	});
 
 	context.subscriptions.push(disposable);
