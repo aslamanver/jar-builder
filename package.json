@@ -2,7 +2,7 @@
 	"name": "jar-builder",
 	"displayName": "JAR Builder",
 	"description": "Build JAR files from JAVA class or .java files",
-	"version": "1.1.0",
+	"version": "1.1.1",
 	"publisher": "aslamanver",
 	"repository": "https://github.com/aslamanver/jar-builder",
 	"license": "MIT",
